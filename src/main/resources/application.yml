@@ -1,0 +1,26 @@
+viacep:
+  url: "https://viacep.com.br/ws"
+
+server:
+  error:
+    include-stacktrace: never
+
+spring:
+  application:
+    name: 'new-crud-cep'
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:new-crud-cep
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+
+logging:
+  level:
+    org.springdoc: DEBUG
+    org.springframework.web: DEBUG
