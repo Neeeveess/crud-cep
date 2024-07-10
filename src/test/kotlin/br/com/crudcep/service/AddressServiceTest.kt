@@ -4,7 +4,6 @@ import br.com.crudcep.client.ViaCepApi
 import br.com.crudcep.client.request.AddressRequest
 import br.com.crudcep.client.response.AddressResponse
 import br.com.crudcep.domain.Address
-import br.com.crudcep.dto.AddressDTO
 import br.com.crudcep.exceptions.CepExistsException
 import br.com.crudcep.exceptions.CepNotFoundException
 import br.com.crudcep.mapper.toDTO
@@ -150,7 +149,6 @@ class AddressServiceTest {
     @DisplayName("Inserir endereço e lançar excessão de CEP não encontrado se não encontrar esse CEP na API")
     fun insertAddressThrowCCepNotFoundException() {
         val cepTest = "12345678"
-        val cepFormated = RegexUtils.convertCepFormated(cepTest)
 
         val errorMock = AddressResponse(
             cep = null,
@@ -280,20 +278,6 @@ class AddressServiceTest {
     fun deleteAddressThrowCepNotFoundException() {
         val cepTest = "12345678"
         val cepFormated = RegexUtils.convertCepFormated(cepTest)
-
-        val addressInDb = Address(
-            cep = cepFormated,
-            logradouro = "Rua Exemplo 1",
-            complemento = "Apto 101",
-            unidade = "",
-            bairro = "Bairro Exemplo",
-            localidade = "Cidade Exemplo",
-            uf = "EX",
-            ibge = "1234567",
-            gia = "",
-            ddd = "11",
-            siafi = "1234"
-        )
 
         Mockito.`when`(addressRepository.findById(cepFormated)).thenReturn(Optional.empty())
 
